@@ -1,22 +1,21 @@
 {
-  "name": "webviewVassonic",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
-  },
-  "dependencies": {
-    "react": "16.3.1",
-    "react-native": "0.55.4"
-  },
-  "devDependencies": {
-    "babel-jest": "22.4.4",
-    "babel-preset-react-native": "4.0.0",
-    "jest": "22.4.4",
-    "react-test-renderer": "16.3.1"
-  },
-  "jest": {
-    "preset": "react-native"
-  }
+    "name": "vassonic-webview",
+    "version": "0.0.2",
+    "description": "react native vassonic webview",
+    "main": "index.js",
+    "scripts": {
+        "start": "node node_modules/react-native/local-cli/cli.js start",
+        "test": "jest"
+    },
+    "dependencies": {
+        "react": "16.0.0",
+        "react-native": "0.50.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vigle7/webviewVassonic"
+    },
+    "keywords": ["react-native", "webview"],
+    "author": "nick chiu",
+    "license": "MIT"
 }
