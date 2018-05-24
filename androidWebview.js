@@ -8,20 +8,30 @@
  */
 'use strict';
 
-const EdgeInsetsPropType = require('EdgeInsetsPropType');
-const ActivityIndicator = require('ActivityIndicator');
-const React = require('React');
+//const EdgeInsetsPropType = require('EdgeInsetsPropType');
+//const ActivityIndicator = require('ActivityIndicator');
+//const React = require('React');
 const PropTypes = require('prop-types');
-const ReactNative = require('ReactNative');
-const StyleSheet = require('StyleSheet');
-const UIManager = require('UIManager');
-const View = require('View');
-const ViewPropTypes = require('ViewPropTypes');
+//const ReactNative = require('ReactNative');
+//const StyleSheet = require('StyleSheet');
+//const UIManager = require('UIManager');
+//const View = require('View');
+//const ViewPropTypes = require('ViewPropTypes');
 
-const deprecatedPropType = require('deprecatedPropType');
 const keyMirror = require('fbjs/lib/keyMirror');
-const requireNativeComponent = require('requireNativeComponent');
-const resolveAssetSource = require('resolveAssetSource');
+const deprecatedPropType = require('react-native/Libraries/Utilities/deprecatedPropType');
+const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
+const requireNativeComponent = require('react-native/Libraries/ReactNative/requireNativeComponent');
+
+import React from 'react';
+import {
+  EdgeInsetsPropType,
+  ActivityIndicator,
+  ReactNative,
+  StyleSheet,
+  View,
+  UIManager
+}from 'react-native'
 
 const RCT_WEBVIEW_REF = 'webview';
 
@@ -52,7 +62,7 @@ class WebView extends React.Component {
   }
 
   static propTypes = {
-    ...ViewPropTypes,
+    ...View.propTypes,
     renderError: PropTypes.func,
     renderLoading: PropTypes.func,
     onLoad: PropTypes.func,
@@ -65,7 +75,7 @@ class WebView extends React.Component {
     onMessage: PropTypes.func,
     onContentSizeChange: PropTypes.func,
     startInLoadingState: PropTypes.bool, // force WebView to show loadingView on first load
-    style: ViewPropTypes.style,
+    style: View.propTypes.style,
 
     html: deprecatedPropType(
       PropTypes.string,
