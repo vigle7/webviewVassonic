@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,6 +27,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.JavascriptInterface;
@@ -59,6 +62,8 @@ import com.facebook.react.views.webview.events.TopMessageEvent;
 
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import com.tencent.sonic.sdk.SonicSession;
 
 /**
  * Manages instances of {@link WebView}
@@ -98,6 +103,8 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
 
   protected WebViewConfig mWebViewConfig;
   protected @Nullable WebView.PictureListener mPictureListener;
+
+  private SonicSession sonicSession;
 
   protected static class ReactWebViewClient extends WebViewClient {
 
@@ -514,7 +521,33 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
   protected void addEventEmitters(ThemedReactContext reactContext, WebView view) {
     // Do not register default touch emitter and let WebView implementation handle
     // touches
-    view.setWebViewClient(new ReactWebViewClient());
+    //view.setWebViewClient(new ReactWebViewClient());
+
+    view.setWebViewClient(new ReactWebViewClient() {
+      @Override
+      public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
+        if (sonicSession != null) {
+          sonicSession.getSessionClient().pageFinish(url);
+        }
+      }
+
+      @TargetApi(21)
+      @Override
+      public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+        return shouldInterceptRequest(view, request.getUrl().toString());
+      }
+
+      @Override
+      public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+        if (sonicSession != null) {
+          //step 6: Call sessionClient.requestResource when host allow the application
+          // to return the local data .
+          return (WebResourceResponse) sonicSession.getSessionClient().requestResource(url);
+        }
+        return null;
+      }
+    });
   }
 
   @Override

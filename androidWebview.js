@@ -24,10 +24,9 @@ const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSou
 const requireNativeComponent = require('react-native/Libraries/ReactNative/requireNativeComponent');
 
 import React from 'react';
-import {
+import ReactNative, {
     EdgeInsetsPropType,
     ActivityIndicator,
-    ReactNative,
     StyleSheet,
     View,
     UIManager
